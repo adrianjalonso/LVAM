@@ -1,0 +1,77 @@
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+import Header from "./Header";
+import Footer from "./Footer";
+import './index.css';
+
+
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
+
+export default function PaginaPrincipal() {
+
+  interface Perfume {
+  id: number,
+  name_perfume: string,
+  price: number,
+  foto: string
+ }
+
+  const [perfumes, setPerfumes] = useState<Perfume[]>([])
+  const [busca, setBusca] = useState("");
+
+ useEffect (()=>{
+  getPerfumes()
+ }, [])
+
+
+
+ async function getPerfumes() {
+  const {data} = await supabase.from("perfumes").select() as {data: Perfume[]| null};
+  if(data)
+    setPerfumes(data)
+ }
+
+
+ const itensFiltrados = perfumes.filter((item) => {
+  const nomeIncluiBusca = item.name_perfume.toLowerCase().includes(busca.toLowerCase());
+  return nomeIncluiBusca;
+});
+
+
+
+  return (
+  <div className="h-screen w-screen flex justify-center items-center flex-col  bg-white">
+    {/* O Header já parece ser full-width: w-full left-0 top-0 fixed */}
+    <Header onSearchChange={setBusca} className={"w-full left-0 top-0 fixed h-14 bg-white border-b flex justify-between items-center px-10 py-4 z-10"} />
+    
+    <main className="flex-1 w-full pt-14 pb-8 flex flex-col items-center gap-4 overflow-y-auto bg-light">       
+        {/*
+          Largura da seção:
+          - w-full (celular)
+          - md:w-5/6 (tablet)
+          - lg:w-2/3 (desktop)
+        */}
+        <section className="grid 
+            grid-cols-2                  
+            md:grid-cols-[repeat(3,minmax(200px,1fr))] 
+            gap-6 p-4 w-full md:w-5/6 lg:w-2/3 
+        ">
+          {itensFiltrados.map((perfume)=>(
+            <figure className="flex flex-col gap-3 pb-3 rounded-lg overflow-hidden shadow-md bg-white transform hover:-translate-y-2 transition-transform duration-300 pt-2" key={perfume.id}>
+              <div className="w-full bg-center bg-no-repeat aspect-square bg-cover relative"><img className="w-full h-full object-cover" src={`./src/imagens/${perfume.name_perfume}.png`} alt="foto" />
+              </div>
+              <div className="p-3">
+                <h1 className="text-lg font-bold leading-normal">{perfume.name_perfume}</h1>
+                <p className="text-base font-medium text-primary">{`R$ ${perfume.price}`}</p>
+                <button className="w-full mt-2 text-sm font-bold text-white bg-primary rounded-lg py-2.5 hover:bg-primary/90 transition-colors">Adicionar ao Carrinho</button>
+              </div>
+            </figure>
+          ))}
+        </section>
+      </main>
+      
+    {/* O Footer já parece ser full-width e fixo na parte inferior, o que funciona bem */}
+    <Footer className={"w-full justify-center flex left-0 bottom-0 fixed h-8 bg-primary"} />
+  </div>
+  );
+}
