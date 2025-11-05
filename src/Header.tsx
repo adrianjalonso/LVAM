@@ -11,7 +11,7 @@ export default function Header ({className, onSearchChange, isFavorited, disable
 
   return(
   <header className={className}>
-  <h1 className="text-3xl font-extralight">Logo</h1>
+  <img className="h-12" src="./src/imagens/logo.png" alt="logo Abdon Modas" />
   <div className={`flex-1 px-8 `}>
     <label className="flex flex-col w-full !h-10">
     <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
@@ -22,16 +22,16 @@ export default function Header ({className, onSearchChange, isFavorited, disable
       </div>
     </label>
   </div>
-  <div className="flex gap-3">
+  <div className={`${desactivar} flex gap-3`}>
     <div className={divIconClass}><i className="text-2xl material-symbols-outlined ">person</i></div>
-    <div className={divIconClass}>
+    <div className={` ${desactivar} ${divIconClass}`}>
       
       <i className=" text-2xl material-symbols-outlined">shopping_cart</i>
       </div>
-    <Link to="/Favoritos" className={`${divIconClass} relative`}>
+    <Link to="/Favoritos" className={`${divIconClass} ${desactivar} relative`}>
       <span className="flex justify-center items-center absolute text-white text-center text-xs font-semibold rounded-full top-1 left-6 bg-primary size-[14px]"><p>{isFavorited}</p></span>
       <i className="text-2xl material-symbols-outlined">favorite</i></Link>
-    <Link to="/" className={divIconClass}><i className=" text-2xl material-symbols-outlined">logout</i></Link>
+    <Link to="/" className={`${divIconClass} ${desactivar}`}><i className=" text-2xl material-symbols-outlined">logout</i></Link>
   </div>
   </header>)
 }

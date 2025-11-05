@@ -92,8 +92,8 @@ export default function PaginaPrincipal({
 
   return (
     <div className="h-screen w-screen flex justify-start items-center flex-col  bg-white">
-      <div className="flex flex-col items-start justify-center h-screen pt-4 pb-8  w-screen">
-        <main className="  flex-1 flex flex-row w-screen items-start overflow-y-auto bg-light">
+      <div className="flex flex-col items-start justify-center h-screen pt-4 pb-6  w-screen">
+        <main className=" flex-1 flex flex-row w-screen items-start overflow-y-auto bg-light">
           <aside className="bg-light pt-14 pb-4  w-52 h-full overflow-y-auto border-dashed border-red-400 justify-center items-start p-5 rounded-lg lg:flex md:flex hidden">
             <section className="bg-white w-full rounded-lg shadow-md h-max">
               <h1

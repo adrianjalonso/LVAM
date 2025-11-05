@@ -28,7 +28,7 @@ export default function App () {
       <Route path="/Favoritos" element={<Favoritos />} />
     </Routes>
     <Footer className={
-          "w-full justify-center flex left-0 bottom-0 fixed h-8 bg-primary"
+          "w-full justify-center flex left-0 bottom-0 fixed h-6 bg-primary"
         } />
     </div>
   )

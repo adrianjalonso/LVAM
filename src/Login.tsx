@@ -1,19 +1,11 @@
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 function Login() {
   return (
     <>
-      <header className=" flex bg-white justify-between items-center pl-6 pr-6 mb-4 border-b">
-        <p className="mt-2 mb-2  text-4xl">logo</p>
-        <a
-          className="mt-2 text-sm font-extralight hover:text-primary"
-          target="_blank"
-          href="https://www.google.com"
-        >
-          Página inicial
-        </a>
-      </header>
-      <main className="flex justify-center items-center max-h-full bg-light ">
+      <Header disable={true} className="w-full left-0 top-0 fixed h-14 bg-white border-b flex justify-between items-center px-4 md:px-10 py-4 z-10" />
+      <main className="flex justify-center items-center max-h-full bg-light pt-16 pb-6">
         <section className=" flex flex-col rounded-xl shadow-lg pt-4 p-8 w-full  max-w-md bg-white gap-4 mb-4">
           <div className="flex justify-evenly mb-6 ">
             <div className="flex justify-center items-center flex-col w-full">
