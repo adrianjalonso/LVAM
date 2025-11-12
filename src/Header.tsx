@@ -29,7 +29,7 @@ export default function Header ({className, onSearchChange, isFavorited, isInCar
       <i className=" text-2xl material-symbols-outlined">shopping_cart</i>
       </div>
     <Link to="/Favoritos" className={`${divIconClass} ${desactivar} relative`}>
-      {isFavorited > 0 && (<span className={`flex justify-center items-center absolute text-white text-center text-xs font-semibold rounded-full top-1 left-6 bg-primary size-[14px] ${itsZeroFavorite}`}><p>{isFavorited}</p></span>)}
+      {isFavorited > 0 && (<span className={`flex justify-center items-center absolute text-white text-center text-xs font-semibold rounded-full top-1 left-6 bg-primary size-[14px] `}><p>{isFavorited}</p></span>)}
       <i className="text-2xl material-symbols-outlined">favorite</i></Link>
   </div>
   </header>)
