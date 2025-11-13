@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import type { Perfume } from "./types/Perfume";
+import type { Pages } from "./types/Pages";
 import "./index.css";
 
 const supabase = createClient(
@@ -7,14 +9,7 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-interface PaginaPrincipalProps {
-  carrinho: number[];
-  setCarrinho: React.Dispatch<React.SetStateAction<number[]>>
-  favoritos: number[];
-  setFavoritos: React.Dispatch<React.SetStateAction<number[]>>;
-  busca: string;
-  setBusca: React.Dispatch<React.SetStateAction<string>>;
-}
+
 
 export default function PaginaPrincipal({
   busca,
@@ -22,24 +17,22 @@ export default function PaginaPrincipal({
   favoritos,
   carrinho,
   setFavoritos,
-  setCarrinho
-}: PaginaPrincipalProps) {
-  interface Perfume {
-    id: number;
-    name_perfume: string;
-    price: number;
-    foto: string;
-    genero: string;
-    estoque: number
-  }
+  setCarrinho,
+  totalMasculino,
+  setTotalMasculino,
+  total,
+  setTotal,
+  totalFeminino,
+  setTotalFeminino,
+  totalKids,
+  setTotalKids,
+}: Pages) {
+
 
   const [perfumes, setPerfumes] = useState<Perfume[]>([]);
   const [perfumesFiltrados, setPerfumesFiltrados] = useState<Perfume[]>([]);
   const [generoSelecionado, setGeneroSelecionado] = useState<string>("todos");
-  const [total, setTotal] = useState(0);
-  const [totalMasculino, setTotalMasculino] = useState(0);
-  const [totalFeminino, setTotalFeminino] = useState(0);
-  const [totalKids, setTotalKids] = useState(0);
+
 
   useEffect(() => {
     getPerfumes();
