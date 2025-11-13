@@ -1,16 +1,17 @@
 import  { useEffect, useState } from "react"
 import { createClient } from "@supabase/supabase-js";
 import type { Perfume } from "./types/Perfume";
-import type { Favorites } from "./types/FavoritesAndCarrinho"
+import type { Carrinho } from "./types/FavoritesAndCarrinho"
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-export default function Favoritos(
+export default function Carrinho(
   {favoritos,
-    setFavoritos,
+    carrinho,
+    setCarrinho,
     total,
     setTotal,
     totalMasculino,
@@ -19,7 +20,7 @@ export default function Favoritos(
     setTotalFeminino,
     totalKids,
     setTotalKids
-  }:Favorites){
+  }:Carrinho){
 
   const [products, setProducts] = useState<Perfume[]>([]) 
 
@@ -27,14 +28,14 @@ export default function Favoritos(
     getPerfumes();
     obterTotais();
 
-  }, [favoritos])
+  }, [carrinho])
 
    async function getPerfumes() {
     const { data } = (await supabase.from("perfumes").select()) as {
       data: Perfume[] | null;
     };
     if (data) {
-      const favoritosPerfumes = data.filter((producto) =>  favoritos.includes(producto.id))      
+      const favoritosPerfumes = data.filter((producto) =>  carrinho.includes(producto.id))      
       setProducts(favoritosPerfumes)}
   }
 
@@ -45,28 +46,27 @@ export default function Favoritos(
       if (data) {
         setTotal(data.filter((perfume) => favoritos.includes(perfume.id)).length)
         setTotalMasculino(
-          data.filter((perfume) => perfume.genero === "masculino" && favoritos.includes(perfume.id)).length
+          data.filter((perfume) => perfume.genero === "masculino" && carrinho.includes(perfume.id)).length
         );
         setTotalFeminino(
-          data.filter((perfume) => perfume.genero === "feminino" && favoritos.includes(perfume.id)).length
+          data.filter((perfume) => perfume.genero === "feminino" && carrinho.includes(perfume.id)).length
         );
         setTotalKids(
-          data.filter((perfume) => perfume.genero === "kids" && favoritos.includes(perfume.id)).length
+          data.filter((perfume) => perfume.genero === "kids" && carrinho.includes(perfume.id)).length
         );
       }
       }
 
-  function toggleFavoritos(id: number) {
-    setFavoritos((prev) =>
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
+  function toggleCarrinho(id: number) {
+    setCarrinho((prev) =>
+      prev.includes(id) ? prev.filter((carrinhoId) => carrinhoId !== id) : [...prev, id]
     );
   }
-  
+
 
  
-
-  return(
-    <div className="grid md:grid-cols-[repeat(3,minmax(200px,1fr))] lg:grid-cols-[repeat(4,minmax(200px,1fr))] grid-cols-[repeat(2,minmax(150px,1fr))] gap-4  w-full md:w-5/6 lg:w-4/5 pt-20 pb-4 ">
+  return (
+   <div className="grid md:grid-cols-[repeat(3,minmax(200px,1fr))] lg:grid-cols-[repeat(4,minmax(200px,1fr))] grid-cols-[repeat(2,minmax(150px,1fr))] gap-4  w-full md:w-5/6 lg:w-4/5 pt-20 pb-4 ">
       <aside className="bg-light pt-1 pb-4  w-52 h-full overflow-y-auto border-dashed border-red-400 justify-center items-start p-5 rounded-lg lg:flex md:flex hidden">
             <section className="bg-white w-full rounded-lg shadow-md h-max">
               <h1 className="font-semibold p-2">{`TODOS (${total})`}</h1>
@@ -106,18 +106,16 @@ export default function Favoritos(
                         )}`}</p>
                       </div>
                       <div
-                      onClick={()=>toggleFavoritos(perfume.id)}
                         className="flex justify-center items-center  p-1 bg-light size-8 rounded-md hover:bg-primary/20 cursor-pointer transition-colors duration-300 mr-1"
                       >
                         <img src={`./src/imagens/favorite.svg`} alt="" />
                       </div>
                     </div>
-                    <button  className={`w-full mt-2 text-sm font-bold text-white bg-primary rounded-lg py-2.5 hover:bg-primary/90 transition-colors `} disabled={perfume.estoque === 0}>
+                    <button onClick={()=>toggleCarrinho(perfume.id)}  className={`w-full mt-2 text-sm font-bold text-white bg-primary rounded-lg py-2.5 hover:bg-primary/90 transition-colors `} disabled={perfume.estoque === 0}>
                       Adicionar ao carrinho
                     </button>
                   </div>
                 </figure>)
       })}</div>
     </div>
-  )
-}
+  )}

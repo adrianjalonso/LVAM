@@ -24,10 +24,10 @@ export default function Header ({className, onSearchChange, isFavorited, isInCar
   </div>
   <div className={`${desactivar} flex gap-3`}>
     <div className={divIconClass}><i className="text-2xl material-symbols-outlined ">person</i></div>
-    <div className={` ${desactivar} ${divIconClass} relative`}>
+    <Link to="/Carrinho" className={` ${desactivar} ${divIconClass} relative`}>
        { isInCarrinho > 0 && (<span className={`flex justify-center items-center absolute text-white text-center text-xs font-semibold rounded-full top-1 left-6 bg-primary size-[14px] `}><p>{isInCarrinho}</p></span>)}
       <i className=" text-2xl material-symbols-outlined">shopping_cart</i>
-      </div>
+      </Link>
     <Link to="/Favoritos" className={`${divIconClass} ${desactivar} relative`}>
       {isFavorited > 0 && (<span className={`flex justify-center items-center absolute text-white text-center text-xs font-semibold rounded-full top-1 left-6 bg-primary size-[14px] `}><p>{isFavorited}</p></span>)}
       <i className="text-2xl material-symbols-outlined">favorite</i></Link>
