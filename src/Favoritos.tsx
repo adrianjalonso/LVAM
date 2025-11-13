@@ -11,6 +11,8 @@ const supabase = createClient(
 export default function Favoritos(
   {favoritos,
     setFavoritos,
+    carrinho,
+    setCarrinho,
     total,
     setTotal,
     totalMasculino,
@@ -61,6 +63,11 @@ export default function Favoritos(
       prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
     );
   }
+
+  function toggleCarrinho(id: number) {
+    setCarrinho((prev)=>
+    prev.includes(id) ? prev.filter((carrinhoId) => carrinhoId !== id) : [...prev, id])
+  }
   
 
  
@@ -84,6 +91,10 @@ export default function Favoritos(
           </aside>
           <div className="grid md:grid-cols-[repeat(3,minmax(200px,1fr))] lg:grid-cols-[repeat(4,minmax(200px,1fr))] grid-cols-[repeat(2,minmax(150px,1fr))] gap-4  w-full md:w-5/6 lg:w-4/5 pb-4 ">
      {products.map((perfume) => {
+                const isFavorited = favoritos.includes(perfume.id)
+                const icon = isFavorited ? "favorite" : "notFavorite" 
+                const isInCarrinho = carrinho.includes(perfume.id)
+                const textCarrinhoButton = isInCarrinho ? "Tirar do carrinho" : "Adicionar ao carrinho" 
          return (<figure
                   className={`flex flex-col gap-3 pb-3 rounded-lg overflow-hidden shadow-md bg-white transform hover:-translate-y-2 transition-transform duration-300 pt-2  `}
                   key={perfume.id}
@@ -109,11 +120,11 @@ export default function Favoritos(
                       onClick={()=>toggleFavoritos(perfume.id)}
                         className="flex justify-center items-center  p-1 bg-light size-8 rounded-md hover:bg-primary/20 cursor-pointer transition-colors duration-300 mr-1"
                       >
-                        <img src={`./src/imagens/favorite.svg`} alt="" />
+                        <img src={`./src/imagens/${icon}.svg`} alt="" />
                       </div>
                     </div>
-                    <button  className={`w-full mt-2 text-sm font-bold text-white bg-primary rounded-lg py-2.5 hover:bg-primary/90 transition-colors `} disabled={perfume.estoque === 0}>
-                      Adicionar ao carrinho
+                    <button onClick={() => toggleCarrinho(perfume.id)} className={`w-full mt-2 text-sm font-bold text-white bg-primary rounded-lg py-2.5 hover:bg-primary/90 transition-colors `} disabled={perfume.estoque === 0}>
+                      {`${textCarrinhoButton}`}
                     </button>
                   </div>
                 </figure>)

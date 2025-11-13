@@ -122,7 +122,7 @@ export default function PaginaPrincipal({
               const isFavorited = favoritos.includes(perfume.id);
               const isInCarrinho = carrinho.includes(perfume.id)
               const textoCarrinho = isInCarrinho ? "Tirar do carrinho" : "Adicionar ao Carrinho"
-              const clase = isFavorited ? "favorite" : "notfavorite";
+              const icon = isFavorited ? "favorite" : "notfavorite";
              const textoEsgotado = perfume.estoque === 0 ? "(esgotado)" : ""
              const botaoDesativado = perfume.estoque === 0 ? "opacity-50 cursor-not-allowed" : ""        
              const esgotado = perfume.estoque === 0 ? "opacity-20" : ""     
@@ -152,7 +152,7 @@ export default function PaginaPrincipal({
                         onClick={() => toggleFavoritos(perfume.id)}
                         className="flex justify-center items-center  p-1 bg-light size-8 rounded-md hover:bg-primary/20 cursor-pointer transition-colors duration-300 mr-1"
                       >
-                        <img src={`./src/imagens/${clase}.svg`} alt="" />
+                        <img src={`./src/imagens/${icon}.svg`} alt="" />
                       </div>
                     </div>
                     <button onClick={() => toggleCarrinho(perfume.id)} className={`w-full mt-2 text-sm font-bold text-white bg-primary rounded-lg py-2.5 hover:bg-primary/90 transition-colors ${botaoDesativado}`} disabled={perfume.estoque === 0}>

@@ -1,6 +1,10 @@
+import type React from "react";
+
  export interface Favorites {
   favoritos: number[];
   setFavoritos: React.Dispatch<React.SetStateAction<number[]>>;
+  carrinho: number[];
+  setCarrinho: React.Dispatch<React.SetStateAction<number[]>>;
   total: number,
   setTotal: React.Dispatch<React.SetStateAction<number>>,
   totalMasculino: number,
@@ -15,6 +19,7 @@
   carrinho: number[]
   setCarrinho: React.Dispatch<React.SetStateAction<number[]>>;
   favoritos: number[];
+  setFavoritos: React.Dispatch<React.SetStateAction<number[]>>
   total: number,
   setTotal: React.Dispatch<React.SetStateAction<number>>,
   totalMasculino: number,
